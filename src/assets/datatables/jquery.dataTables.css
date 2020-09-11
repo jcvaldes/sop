@@ -1,0 +1,41 @@
+.dataTables_wrapper{
+	margin-right: 2px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+	color: #000 !important;
+	border: 1px solid #a2a2a2;
+	background-color: #e3e4e4;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e3e4e4), color-stop(100%, #e3e4e4));
+	/* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #e3e4e4 0%, #e3e4e4 100%);
+	/* Chrome10+,Safari5.1+ */
+	background: -moz-linear-gradient(top, #e3e4e4 0%, #e3e4e4 100%);
+	/* FF3.6+ */
+	background: -ms-linear-gradient(top, #e3e4e4 0%, #e3e4e4 100%);
+	/* IE10+ */
+	background: -o-linear-gradient(top, #e3e4e4 0%, #e3e4e4 100%);
+	/* Opera 11.10+ */
+	background: linear-gradient(to bottom, #e3e4e4 0%, #e3e4e4 100%);
+	/* W3C */
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+	visibility: hidden;
+	width: 87px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+	color: #fff !important;
+	border: 1px solid #165396;
+	background-color: #165396;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #165396), color-stop(100%, #165396));
+	/* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #165396 0%, #165396 100%);
+	/* Chrome10+,Safari5.1+ */
+	background: -moz-linear-gradient(top, #165396 0%, #165396 100%);
+	/* FF3.6+ */
+	background: -ms-linear-gradient(top, #165396 0%, #165396 100%);
+	/* IE10+ */
+	background: -o-linear-gradient(top, #165396 0%, #165396 100%);
+	/* Opera 11.10+ */
+	background: linear-gradient(to bottom, #165396 0%, #165396 100%);
+	/* W3C */
+}

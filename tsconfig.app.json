@@ -2,14 +2,17 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
+    "moduleResolution": "node",
+    "paths": {
+      "@app/*": ["src/app/*"],
+      "@env": ["src/environments/environment"],
+      "@core/*": ["src/app/core/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@ls": ["src/app/core/services/localstorage.service.ts"]
+    },
     "outDir": "./out-tsc/app",
     "types": []
   },
-  "files": [
-    "src/main.ts",
-    "src/polyfills.ts"
-  ],
-  "include": [
-    "src/**/*.d.ts"
-  ]
+  "files": ["src/main.ts", "src/polyfills.ts"],
+  "include": ["src/**/*.d.ts"]
 }

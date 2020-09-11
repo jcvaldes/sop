@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+.logo {
+  display:block;
+  margin:auto;
+}
+.wrapper {
+  height: 100vh;
+  background: #ddd;
+  background-color: #F8CE01;
+  background: linear-gradient(to bottom, #F8CE01 0%, #F8CE01 40%, #f0f0f0 40%, #f0f0f0 100%);
+  position: relative;
+  text-align: center;
+  overflow: auto;
+}
+
+.center-content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* unnecessary styling properties */
+  // max-width: 50%;
+  text-align: center;
+}
+
+// .form-element {
+//   height: 40vh;
+//   background: white;
+// }
+
+.login-box {
+  position: relative;
+  min-width: 340px;
+  min-height: 350px;
+  background-color: #fff;
+  -webkit-box-shadow: 0px 29px 147.5px 102.5px rgba(0, 0, 0, 0.05), 0px 29px 95px 0px rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 29px 147.5px 102.5px rgba(0, 0, 0, 0.05), 0px 29px 95px 0px rgba(0, 0, 0, 0.16);
+  -webkit-perspective: 800px;
+  perspective: 800px;
+  -webkit-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
