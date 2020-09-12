@@ -5,6 +5,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 export const config: FileInputConfig = {
   sizeUnit: 'Octet'
 };
+import { MatTreeModule } from '@angular/material/tree';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { A11yModule } from '@angular/cdk/a11y';
 import { BidiModule } from '@angular/cdk/bidi';
@@ -40,6 +41,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { MatExpansionModule } from '@angular/material/expansion';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 const modules = [
   MatCheckboxModule,
@@ -59,6 +63,7 @@ const modules = [
   MatSlideToggleModule,
   MatNativeDateModule,
   MatTableModule,
+  MatExpansionModule,
   MatPaginatorModule,
   MatSortModule,
   MatDialogModule,
@@ -69,17 +74,20 @@ const modules = [
   MatAutocompleteModule,
   MaterialFileInputModule,
   NgxMaterialTimepickerModule,
-    // CDK
-    A11yModule,
-    BidiModule,
-    ObserversModule,
-    OverlayModule,
-    PlatformModule,
-    PortalModule,
-    ScrollingModule,
-    CdkStepperModule,
-    CdkTableModule,
-    CdkTreeModule,
+  MatTreeModule,
+  MatProgressBarModule,
+
+  // CDK
+  A11yModule,
+  BidiModule,
+  ObserversModule,
+  OverlayModule,
+  PlatformModule,
+  PortalModule,
+  ScrollingModule,
+  CdkStepperModule,
+  CdkTableModule,
+  CdkTreeModule,
 ];
 export const MY_FORMATS = {
   parse: {
@@ -103,4 +111,4 @@ export const MY_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ]
 })
-export class MaterialModule {}
+export class MaterialModule { }

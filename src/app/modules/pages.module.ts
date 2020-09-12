@@ -6,12 +6,14 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from '@core/navbar/navbar.component';
 import { MaterialModule } from '@core/material.module';
+import { MenuComponent } from '@app/modules/menu/menu.component';
 
 @NgModule({
   declarations: [
     PagesComponent,
     DashboardComponent,
-    NavbarComponent
+    NavbarComponent,
+    MenuComponent
   ],
   imports: [
     CommonModule,

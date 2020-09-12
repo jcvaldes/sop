@@ -11,11 +11,11 @@ const routes: Routes = [
     // canActivate: [VerifyTokenGuard],
     data: { titulo: 'Dashboard' }
   },
-  // {
-  //   path: 'documents-entrega',
-  //   loadChildren: () => import('./documentos/documento-entrega/documento-entrega.module').then(m => m.DocumentoEntregaModule),
-  //   // canActivate: [LoginGuard],
-  // },
+  {
+    path: 'documentos-entrega',
+    loadChildren: () => import('./documents/document-dispatched/document-dispatched.module').then(m => m.DocumentDispatchedModule),
+    // canActivate: [LoginGuard],
+  },
 
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 ];

@@ -2,19 +2,26 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class HttpService {
   constructor(protected http: HttpClient) {}
-  public get<T>(url): Observable<any> {
+  get<T>(url): Observable<any> {
     return this.http.get(url);
   }
-  public post(url, payload): Observable<any> {
+  getSingle<T>(url, id: any) {
+    return this.http.get<T>(
+      `${url}/${id}`
+    );
+  }
+  post(url, payload): Observable<any> {
     return this.http.post(url, payload);
   }
-  public put<T>(url, payload: T): Observable<T> {
+  put<T>(url, payload: T): Observable<T> {
     return this.http.put<T>(url, payload);
   }
-  public delete(url): Observable<any> {
+  delete(url): Observable<any> {
     return this.http.delete(url);
   }
 }

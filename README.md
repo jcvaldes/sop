@@ -15,3 +15,11 @@ npm install
 npx sequelize-cli db:migrate
 npx sequelize-cli db:seed:all
 ```
+
+## Carpetas: 
+
+core: esta todo el nucleo de la aplicación y es todo lo que es compartido en toda la aplicación e indispensable para que funcione como guards, interceptors y servicios, etc
+
+shared: es todo lo que se comparte pero puede usarse en 1, 2 o mas componentes pero no en toda la aplicación
+
+modules: aqui se encuentran los módulos y se trabajan con lazy load

@@ -1,0 +1,38 @@
+<mat-tree
+  *ngIf="dataSource"
+  [dataSource]="dataSource"
+  [treeControl]="treeControl"
+>
+
+<mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+    <button mat-icon-button disabled></button>
+    <i class="{{node.item.icon}} pr-3"></i>
+    <a [routerLink]="node.item.uri" class="cursor text-uppercase">
+      {{ node.item.title }}
+    </a>
+  </mat-tree-node>
+  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+    <button
+      mat-icon-button
+      [attr.aria-label]="'Toggle ' + node.item"
+      matTreeNodeToggle
+    >
+      <mat-icon class="mat-icon-rtl-mirror">
+        {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+      </mat-icon>
+    </button>
+    <span class="text-uppercase ml-4">
+      <i class="{{node.icon}} pr-2"></i>
+      <strong>
+        <em>
+          {{ node.item }}
+        </em>
+      </strong>
+    </span>
+    <mat-progress-bar
+      *ngIf="node.isLoading"
+      mode="indeterminate"
+      class="example-tree-progress-bar ml-4 p-2 w-25"
+    ></mat-progress-bar>
+  </mat-tree-node>
+</mat-tree>
