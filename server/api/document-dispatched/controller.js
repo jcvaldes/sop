@@ -1,7 +1,7 @@
 import db from '../../models'
 import RESPONSES from '../../utils/responses'
 
-class DocumentDispatched {
+class DocumentDispatchedController {
   static async Fetch(req, res) {
     const attrs = [
       'id',
@@ -76,6 +76,11 @@ class DocumentDispatched {
       .catch(Sequelize.ValidationError, (msg) => {
         res.status(422).json({ message: msg.message })
       })
+      .catch(Sequelize.ForeignKeyConstraintError, (err) =>
+        res.status(400).json({
+          message: RESPONSES.RECORD_IN_USE_ERROR.message,
+        }),
+      )
       .catch((err) =>
         res
           .status(400)
@@ -93,7 +98,6 @@ class DocumentDispatched {
       motiveNotDeliver,
     } = req.body
     const id = +req.params.id
-
     db.DocumentDispatched.update(
       {
         id,
@@ -112,6 +116,11 @@ class DocumentDispatched {
           res.status(200).json(document)
         }
       })
+      .catch(Sequelize.ForeignKeyConstraintError, (err) =>
+        res.status(400).json({
+          message: RESPONSES.RECORD_IN_USE_ERROR.message,
+        }),
+      )
       .catch(Sequelize.ValidationError, (msg) =>
         res.status(422).json({ message: msg.errors[0].message }),
       )
@@ -123,7 +132,7 @@ class DocumentDispatched {
   }
   static Delete(req, res) {
     const { id } = req.params
-    db.role
+    db.DocumentDispatched
       .destroy({ where: { id } })
       .then((result) => {
         if (result === 0) {
@@ -139,11 +148,6 @@ class DocumentDispatched {
       .catch(Sequelize.ValidationError, (msg) =>
         res.status(422).json({ message: msg.errors[0].message }),
       )
-      .catch(Sequelize.ForeignKeyConstraintError, (err) =>
-        res.status(400).json({
-          message: RESPONSES.RECORD_IN_USE_ERROR.message,
-        }),
-      )
       .catch((err) =>
         res
           .status(400)
@@ -151,4 +155,4 @@ class DocumentDispatched {
       )
   }
 }
-export default DocumentDispatched
+export default DocumentDispatchedController

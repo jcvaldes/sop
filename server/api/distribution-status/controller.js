@@ -1,7 +1,7 @@
 import db from '../../models'
 import RESPONSES from '../../utils/responses'
 
-class DistributionStatus {
+class DistributionStatusController {
   static async Fetch(req, res) {
     const attrs = [
       'id',
@@ -22,4 +22,4 @@ class DistributionStatus {
       })
   }
 }
-export default DistributionStatus
+export default DistributionStatusController

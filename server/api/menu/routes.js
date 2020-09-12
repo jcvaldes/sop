@@ -1,8 +1,8 @@
 import express from 'express';
-import Menu from './controller';
+import MenuController from './controller';
 
 const app = express();
 
-app.get('/', Menu.Fetch);
+app.get('/', MenuController.Fetch);
 
 export default app;

@@ -1,7 +1,7 @@
 import db from '../../models'
 import RESPONSES from '../../utils/responses'
 
-class Menu {
+class MenuController {
   static async Fetch(req, res) {
     const attrs = [
       'id',
@@ -24,4 +24,4 @@ class Menu {
       })
   }
 }
-export default Menu
+export default MenuController

@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="row animated fadeIn faster">
+  <div class="row">
     <div class="col-12">
       <mat-card class="example-card">
         <mat-card-header
@@ -64,7 +64,7 @@
                   </div>
                 </div>
                 <em><h6>Carga de Datos</h6></em>
-                <div class="form-group form-row">
+                <div class="row">
                   <div class="col-12 col-md-3">
                     <mat-form-field>
                       <input
@@ -113,23 +113,24 @@
                     </mat-form-field>
                   </div>
                   <div class="col-12 col-md-2">
-                    <button
-                      mat-raised-button
-                      color="yellow"
-                      style="height: 3.2rem; margin-left: 20px;"
-                      (click)="onCreate()"
-                    >
-                      <span class="material-icons">
-                        storage
-                      </span>
-                      Agregar
-                    </button>
+                    <div class="text-right text-sm-left mt-2 mt-sm-0">
+                      <button
+                        mat-raised-button
+                        color="primary"
+                        (click)="onCreate()"
+                      >
+                        <span class="material-icons">
+                          add
+                        </span>
+                        Agregar
+                      </button>
+                    </div>
                   </div>
                 </div>
               </form>
             </div>
           </div>
-          <hr>
+          <hr />
           <div class="row">
             <div class="col-12">
               <div class="mat-elevation-z8">
