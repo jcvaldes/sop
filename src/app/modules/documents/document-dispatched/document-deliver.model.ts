@@ -6,5 +6,5 @@ export interface DocumentDeliver {
   statusDeliver: string;
   timeStreet: string;
   motiveNotDeliver: string;
-  id?: number;
+  id?: string;
 }

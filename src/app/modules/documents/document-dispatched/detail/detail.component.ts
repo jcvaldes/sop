@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { HttpService } from '@core/services/http.service';
 import { ActivatedRoute } from '@angular/router';
@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { DocumentDeliver } from '../document-deliver.model';
+import * as uuidv4 from 'uuid/v4';
+import { SwalService } from '../../../../core/services/swal.service';
 
 @Component({
   selector: 'app-detail',
@@ -15,18 +17,21 @@ import { DocumentDeliver } from '../document-deliver.model';
 export class DetailComponent implements OnInit, OnDestroy {
   form: FormGroup;
   paramSubs: Subscription;
-  displayedColumns: string[] = ['pieceId', 'statusDeliver', 'timeStreet', 'motiveNotDeliver', 'actions' ];
+  displayedColumns: string[] = [ 'pieceId', 'statusDeliver', 'timeStreet', 'motiveNotDeliver', 'actions'];
+
   dataSource: MatTableDataSource<DocumentDeliver> = new MatTableDataSource<
     DocumentDeliver
   >();
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('refDocument', { static: true }) refDocument: ElementRef;
   constructor(
     private fb: FormBuilder,
     private activateRoute: ActivatedRoute,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private swalService: SwalService
   ) {
     this.createForm();
-    this.paramSubs  = activateRoute.params.subscribe(params => {
+    this.paramSubs = activateRoute.params.subscribe(params => {
       const id = params.id;
       if (id) {
         this.populateForm(id);
@@ -51,6 +56,34 @@ export class DetailComponent implements OnInit, OnDestroy {
     });
   }
   onCreate() {
+    const id: string = this.form.get('id').value;
+    if (!id) {
+      // Create
+      if (this.dataSource.data.length > 23) {
+        this.swalService.error('Oopss!', 'Deberás enviar estos 24 items para seguir cargando...');
+      }
+      const data = [...this.dataSource.data];
+      this.form.get('id').setValue(uuidv4());
+      data.push({ ...this.form.value });
+      this.dataSource.data = data;
+      this.form.reset();
+      this.refDocument.nativeElement.focus();
+    } else {
+      // Update
+      const idx = this.dataSource.data.findIndex(doc => doc.id === this.form.get('id').value);
+      this.dataSource.data[idx] = { ...this.form.value };
+      const data = [...this.dataSource.data];
+      this.dataSource.data = data;
+    }
+  }
+  onEdit(row) {
+    this.form.setValue(row);
+  }
+  onDelete(id) {
+    const idx = this.dataSource.data.findIndex(doc => doc.id === id);
+    this.dataSource.data.splice(idx, 1);
+    const data = [...this.dataSource.data] || [];
+    this.dataSource.data = data;
 
   }
   onSubmit() {
