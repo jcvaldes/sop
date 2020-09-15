@@ -6,7 +6,15 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class HttpService {
-  constructor(protected http: HttpClient) {}
+  // tslint:disable-next-line: variable-name
+  private _url: string;
+  public get url(): string {
+    return this._url;
+  }
+  public set url(value: string) {
+    this._url = value;
+  }
+  constructor(protected http: HttpClient) { }
   get<T>(url): Observable<any> {
     return this.http.get(url);
   }

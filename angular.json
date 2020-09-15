@@ -23,6 +23,11 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "url-join",
+              "uuid/v4"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"

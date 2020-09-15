@@ -13,6 +13,6 @@
     "outDir": "./out-tsc/app",
     "types": []
   },
-  "files": ["src/main.ts", "src/polyfills.ts"],
+  "files": ["src/main.ts", "src/polyfills.ts", "./src/app/shared/utils/combo-search/ComboSearchComponent.ts"],
   "include": ["src/**/*.d.ts"]
 }

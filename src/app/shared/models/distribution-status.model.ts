@@ -3,4 +3,5 @@ export interface DistributionStatus {
   description: string;
   translate?: string;
   category?: string;
+  id?: number;
 }

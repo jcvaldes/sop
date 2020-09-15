@@ -1,10 +1,13 @@
-import { Component, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { HttpService } from './../../../core/services/http.service';
+import { Component, OnDestroy, Input, Output, EventEmitter, Inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ReplaySubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { HttpService } from '@core/services/http.service';
 
-export abstract class ComboSearch<T> implements OnDestroy {
+@Component({
+  template: ''
+})
+export abstract class ComboSearchComponent<T> implements OnDestroy {
   @Input() isRequired = false;
   @Input() comboCtrl: FormControl;
   /** control for the selected bank */
@@ -18,8 +21,8 @@ export abstract class ComboSearch<T> implements OnDestroy {
   public payload: any;
   constructor(
     public service: HttpService,
-    public url: string,
-    public isServerSide = false
+    @Inject(String) public url: string,
+    @Inject(Boolean)public isServerSide = false
   ) {
     service.url = url;
     if (!isServerSide) {
@@ -29,7 +32,7 @@ export abstract class ComboSearch<T> implements OnDestroy {
   }
   protected onLoad(filter = '') {
     return this.service
-      .getAll<T>(filter, 'id', 'asc', 0, 0)
+      .get<T>(this.service.url)
       .subscribe((response: any) => {
         this.payload = response.payload;
         this.filteredData.next(this.payload.slice());
@@ -43,6 +46,7 @@ export abstract class ComboSearch<T> implements OnDestroy {
       });
   }
   protected filterData() {
+    debugger
     if (!this.payload) {
       return;
     }

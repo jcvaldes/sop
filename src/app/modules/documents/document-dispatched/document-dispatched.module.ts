@@ -1,3 +1,5 @@
+import { SharedModule } from './../../../shared/shared.module';
+
 import { DocumentDispatchedRoutingModule } from './document-dispatched-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -20,7 +22,8 @@ import { DocumentDispatchedComponent } from './document-dispatched.component';
     DocumentDispatchedRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    SharedModule
   ]
 })
 export class DocumentDispatchedModule { }
