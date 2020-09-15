@@ -34,7 +34,7 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.paramSubs = activateRoute.params.subscribe(params => {
       const id = params.id;
       if (id) {
-        this.populateForm(id);
+        // this.populateForm(id);
       }
     });
   }
@@ -113,18 +113,4 @@ export class DetailComponent implements OnInit, OnDestroy {
       }
     }
   }
-  populateForm(data) {
-    // this.roleSubscription = this.httpService
-    //   .getSingle<Role>(data.id)
-    //   .subscribe((res: any) => {
-    //     this.role = res.payload;
-    //     debugger
-    //     this.form.get('id').setValue(this.role.id);
-    //     this.form.get('rolename').setValue(this.role.rolename);
-    //     this.form.get('description').setValue(this.role.description);
-    //     this.form.get('ApplicationId').setValue(this.role.ApplicationId);
-    //     this.form.get('active').setValue(this.role.active);
-    //   }, err => this.notificationService.error(`:: ${err}`));
-  }
-
 }
