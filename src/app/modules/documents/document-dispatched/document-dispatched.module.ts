@@ -10,7 +10,9 @@ import { ListComponent } from './list/list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DocumentDispatchedComponent } from './document-dispatched.component';
-
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { MaskDateDirective } from '../../../shared/directives/mask-date.directive';
+export let options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
   declarations: [
     DocumentDispatchedComponent,
@@ -23,7 +25,8 @@ import { DocumentDispatchedComponent } from './document-dispatched.component';
     MaterialModule,
     ReactiveFormsModule,
     RouterModule,
-    SharedModule
+    SharedModule,
+    NgxMaskModule.forRoot(options)
   ]
 })
 export class DocumentDispatchedModule { }

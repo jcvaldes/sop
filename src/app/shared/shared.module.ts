@@ -3,6 +3,7 @@ import { DistributionStatusSearchComponent } from './components/distribution-sta
 import { MaterialModule } from '../core/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { DirectivesModule } from './directives/directives.module';
 
 @NgModule({
   declarations: [

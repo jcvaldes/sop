@@ -16,6 +16,8 @@ import { SwalService } from '../../../../core/services/swal.service';
 })
 export class DetailComponent implements OnInit, OnDestroy {
   form: FormGroup;
+  dateMask = '00/00/0000';
+  mask = 'SS-000000000-SS';
   paramSubs: Subscription;
   displayedColumns: string[] = [ 'pieceId', 'statusDeliver', 'timeStreet', 'motiveNotDeliver', 'actions'];
 

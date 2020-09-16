@@ -19,7 +19,7 @@ import { MenuComponent } from '@app/modules/menu/menu.component';
     CommonModule,
     PagesRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class PagesModule { }

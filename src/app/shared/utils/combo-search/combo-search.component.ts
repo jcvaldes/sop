@@ -22,7 +22,7 @@ export abstract class ComboSearchComponent<T> implements OnDestroy {
   constructor(
     public service: HttpService,
     @Inject(String) public url: string,
-    @Inject(Boolean)public isServerSide = false
+    @Inject(Boolean) public isServerSide = false
   ) {
     service.url = url;
     if (!isServerSide) {

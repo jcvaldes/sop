@@ -30,6 +30,7 @@ import { TokenInterceptor } from './core/interceptors/token.interceptors';
     HttpClientModule,
     MaterialModule,
     PipesModule,
+
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

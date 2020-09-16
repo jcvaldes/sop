@@ -26,6 +26,7 @@
     "@ngrx/store-devtools": "10.0.0",
     "lodash": "4.17.20",
     "moment": "2.27.0",
+    "ngx-mask": "10.0.1",
     "ngx-mat-select-search": "3.0.3",
     "ngx-material-file-input": "2.1.1",
     "ngx-material-timepicker": "5.5.3",
@@ -33,6 +34,7 @@
     "sweetalert2": "10.0.0",
     "tslib": "2.0.0",
     "url-join": "4.0.1",
+    "vanilla-text-mask": "5.1.1",
     "zone.js": "0.10.3"
   },
   "devDependencies": {
