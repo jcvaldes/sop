@@ -80,9 +80,9 @@ export class AuthService extends HttpService {
   login(user: User, remember: boolean ) {
 
     if (remember) {
-      this.ssService.set('accountName', user.accountName);
+      this.lsService.set('accountName', user.accountName);
     } else {
-      this.ssService.remove('accountName');
+      this.lsService.remove('accountName');
     }
     return this.http
       .post(this.url, user)
