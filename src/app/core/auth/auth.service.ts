@@ -78,7 +78,7 @@ export class AuthService extends HttpService {
   }
 
   login(user: User, remember: boolean ) {
-    debugger
+
     if (remember) {
       this.ssService.set('accountName', user.accountName);
     } else {
