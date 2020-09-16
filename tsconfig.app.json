@@ -8,7 +8,7 @@
       "@env": ["src/environments/environment"],
       "@core/*": ["src/app/core/*"],
       "@shared/*": ["src/app/shared/*"],
-      "@ls": ["src/app/core/services/localstorage.service.ts"]
+      "@ls": ["src/app/core/services/local-storage.service.ts"]
     },
     "outDir": "./out-tsc/app",
     "types": []

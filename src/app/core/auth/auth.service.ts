@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map, catchError } from 'rxjs/operators';
 import urljoin from 'url-join';
-import { User, UserReq } from '../../shared/models/user.model';
+import { User } from '../../shared/models/user.model';
 import { AppState } from '../../app.reducer';
 import { Store } from '@ngrx/store';
 import * as ui from '../../shared/ui.actions';
@@ -11,8 +11,9 @@ import { HttpService } from '../services/http.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@env';
 import { Router } from '@angular/router';
-import { LocalstorageService } from '@ls';
+import { LocalStorageService } from '@app/core/services/local-storage.service';
 import { SwalService } from '../services/swal.service';
+import { SessionStorageService } from '../services/session-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,11 +27,13 @@ export class AuthService extends HttpService {
     public http: HttpClient,
     private router: Router,
     private swalService: SwalService,
-    private ls: LocalstorageService,
+    private ssService: SessionStorageService,
+    private lsService: LocalStorageService,
     private store: Store<AppState>
   ) {
     super(http);
-    this.url = urljoin(environment.apiUrl, '/api/auth');
+    // this.url = urljoin(environment.apiUrl, '/api/auth');
+    this.url = urljoin(environment.apiUrl, '/users/login');
   }
 
   // nos avisa cualquier cambio con la autenticacion, cuando tengamos el usuario o cierro sesion
@@ -56,7 +59,7 @@ export class AuthService extends HttpService {
       .pipe(
         map((response: any) => {
           this.token = response.token;
-          this.ls.set('token', this.token);
+          this.ssService.set('token', this.token);
           console.log('Token renovado');
           return true;
         })
@@ -74,12 +77,12 @@ export class AuthService extends HttpService {
       );
   }
 
-  login(user: UserReq, remember: boolean ) {
+  login(user: User, remember: boolean ) {
     debugger
     if (remember) {
-      this.ls.set('username', user.username);
+      this.ssService.set('accountName', user.accountName);
     } else {
-      this.ls.remove('username');
+      this.ssService.remove('accountName');
     }
     return this.http
       .post(this.url, user)
@@ -108,9 +111,9 @@ export class AuthService extends HttpService {
     this.token = '';
     // this.menu = [];
     this.store.dispatch(authActions.unSetUser());
-    this.ls.remove('token');
-    this.ls.remove('user');
-    // this.ls.remove('menu');
+    this.ssService.remove('token');
+    this.ssService.remove('user');
+    // this.ssService.remove('menu');
     this.router.navigate(['/login']);
   }
   isLoggedIn() {
@@ -121,21 +124,21 @@ export class AuthService extends HttpService {
       return true;
     }
   }
-  saveStorage(id: string, token: string, user: User, menu: any) {
-    this.ls.set('id', id);
-    this.ls.set('token', token);
-    this.ls.set('user', user);
-    this.ls.set('menu', menu);
+  saveStorage(id: number, token: string, user: User, menu: any) {
+    this.ssService.set('id', id);
+    this.ssService.set('token', token);
+    this.ssService.set('user', user);
+    this.ssService.set('menu', menu);
     this.user = user;
     this.token = token;
   //  this.menu = menu;
   }
   loadStorage() {
-    const token = this.ls.get('token');
+    const token = this.ssService.get('token');
     if (token) {
       this.token = token;
-      this.user = this.ls.get('user');
-      // this.menu = this.ls.get('menu');
+      this.user = this.ssService.get('user');
+      // this.menu = this.ssService.get('menu');
     } else {
       this.token = '';
       this.user = null;

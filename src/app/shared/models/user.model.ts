@@ -1,15 +1,9 @@
-export interface UserReq {
-  username: string;
+export interface User {
+  accountName: string;
   password: string;
-}
-export class User implements UserReq {
-  constructor(
-    public uid: string,
-    public firstname: string,
-    public lastname: string,
-    public username: string,
-    public password: string,
-    public email: string,
-  ) {}
+  firstname: string;
+  lastname: string;
+  email: string;
+  id: number;
 }
 
