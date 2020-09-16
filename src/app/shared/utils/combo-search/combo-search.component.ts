@@ -46,7 +46,6 @@ export abstract class ComboSearchComponent<T> implements OnDestroy {
       });
   }
   protected filterData() {
-    debugger
     if (!this.payload) {
       return;
     }
