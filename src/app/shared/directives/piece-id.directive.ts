@@ -11,7 +11,6 @@ import { Product } from '../models/product.model';
 export class PieceIdValidatorDirective implements Validator {
   @Input() products: Product[];
   validate(control: AbstractControl): { [key: string]: any } | null {
-    debugger
     const pattern = '^[A-Z]{1,2}\\d{9,9}AR$';
     if (!control.value) {
       return;
