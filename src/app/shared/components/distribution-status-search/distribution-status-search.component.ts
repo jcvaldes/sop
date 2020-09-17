@@ -1,5 +1,5 @@
 import { environment } from '@env';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import _ from 'lodash';
 
 import { HttpService } from '../../../core/services/http.service';

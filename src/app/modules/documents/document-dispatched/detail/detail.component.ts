@@ -1,3 +1,4 @@
+import { environment } from '@env';
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { HttpService } from '@core/services/http.service';
@@ -8,7 +9,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { DocumentDeliver } from '../document-deliver.model';
 import * as uuidv4 from 'uuid/v4';
 import { SwalService } from '../../../../core/services/swal.service';
-import { ValidatorsService } from './validators.service';
+import { Product } from '@shared/models/product.model';
 
 @Component({
   selector: 'app-detail',
@@ -18,7 +19,9 @@ import { ValidatorsService } from './validators.service';
 export class DetailComponent implements OnInit, OnDestroy {
   form: FormGroup;
   pieceMsk = 'SS-000000000-SS';
+  productSubs: Subscription;
   paramSubs: Subscription;
+  products: Product;
   displayedColumns: string[] = [ 'pieceId', 'statusDeliver', 'timeStreet', 'motiveNotDeliver', 'actions'];
 
   dataSource: MatTableDataSource<DocumentDeliver> = new MatTableDataSource<
@@ -31,7 +34,6 @@ export class DetailComponent implements OnInit, OnDestroy {
     private activateRoute: ActivatedRoute,
     private httpService: HttpService,
     private swalService: SwalService,
-    private validators: ValidatorsService
   ) {
     this.createForm();
     this.paramSubs = activateRoute.params.subscribe(params => {
@@ -42,6 +44,10 @@ export class DetailComponent implements OnInit, OnDestroy {
     });
   }
   ngOnInit(): void {
+    const url = `${environment.apiUrl}/api/product`;
+    this.productSubs = this.httpService.get(url).subscribe(products => {
+      this.products = products;
+    })
   }
   ngOnDestroy() {
     this.paramSubs.unsubscribe();
@@ -53,8 +59,7 @@ export class DetailComponent implements OnInit, OnDestroy {
       unityCompany: new FormControl(null, [Validators.required, Validators.maxLength(6), Validators.minLength(6), Validators.pattern('^[0-9]{1,45}$')]),
       distribution: new FormControl(null, [Validators.required, Validators.maxLength(20), Validators.pattern('[a-zA-Z]+')]),
       pieceId: new FormControl(null, [
-        Validators.required,
-        // pieceIdValidator(/^[A-Z]{1,2}-\\d{9,9}-AR$/i)
+        Validators.required
       ]),
       statusDeliver: new FormControl(null, Validators.required),
       timeStreet: new FormControl(null, Validators.required),

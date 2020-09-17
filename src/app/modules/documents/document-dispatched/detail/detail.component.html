@@ -19,7 +19,6 @@
             <div class="col-12">
               <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <input type="hidden" formControlName="id" />
-                <em><h6>Procesamiento de Documentos de Entrega</h6></em>
                 <div class="form-group form-row">
                   <div class="col-12 col-md-3">
                     <mat-form-field>
@@ -65,25 +64,23 @@
                     </mat-form-field>
                   </div>
                 </div>
-                <em><h6>Carga de Datos</h6></em>
+                <em><h6>Carga de Resultado de Distribución</h6></em>
                 <div class="row">
                   <div class="col-12 col-md-3">
                     <!-- [mask]="pieceMsk"
                     [showMaskTyped]="true"
                     pattern="[A-Z]{1,2}\w+[-]{1}\d*[-]{1}AR/" -->
-                    <!-- (input)="pieceId.value = pieceId.value.toUpperCase()" -->
-
                     <mat-form-field>
                       <input
                         matInput
                         type="text"
-                        [mask]="pieceMsk"
-                        [showMaskTyped]="true"
                         validation="true"
                         (input)="pieceId.value = pieceId.value.toUpperCase()"
-                        placeholder="ID Pieza"
+                        placeholder="Cód de Pieza"
                         formControlName="pieceId"
+                        maxlength="13"
                         appPieceId
+                        [products] = "products"
                         required
                         #pieceId
                       />
@@ -98,9 +95,6 @@
                   </div>
 
                   <div class="col-12 col-md-3">
-                    {{ form.get('pieceId').dirty }}
-                    {{ form.get('pieceId').touched }}
-                    {{ form.get('pieceId').hasError('pieceIdInvalid') }}
                     <!-- <mat-form-field> -->
                       <!-- <input
                         matInput
@@ -131,7 +125,7 @@
                       <input
                         matInput
                         type="text"
-                        placeholder="Motivo No Entrega"
+                        placeholder="Firma u Observación"
                         formControlName="motiveNotDeliver"
                         required
                       />
@@ -170,6 +164,7 @@
           <hr />
           <div class="row">
             <div class="col-12">
+              <h2>Resultado de la distribución</h2>
               <div class="mat-elevation-z8">
                 <div class="table-responsive">
                   <mat-table
@@ -181,7 +176,7 @@
                   >
                     <ng-container matColumnDef="pieceId">
                       <mat-header-cell *matHeaderCellDef>
-                        Pieza ID
+                        Cód. de Pieza
                       </mat-header-cell>
                       <mat-cell *matCellDef="let element">
                         {{ element?.pieceId }}
@@ -189,7 +184,7 @@
                     </ng-container>
                     <ng-container matColumnDef="statusDeliver">
                       <mat-header-cell *matHeaderCellDef>
-                        Estado Envío
+                        Estado de Distribución
                       </mat-header-cell>
                       <mat-cell *matCellDef="let element">
                         {{ element?.statusDeliver }}
@@ -205,7 +200,7 @@
                     </ng-container>
                     <ng-container matColumnDef="motiveNotDeliver">
                       <mat-header-cell *matHeaderCellDef>
-                        Motivo No Envío
+                        Firma u Observación
                       </mat-header-cell>
                       <mat-cell *matCellDef="let element">
                         {{ element?.motiveNotDeliver }}
@@ -261,9 +256,9 @@
           </div>
           <div class="row mt-4">
             <div class="col-12 text-right">
-              <button mat-raised-button color="accent" (click)="onSubmit()">
+              <button mat-raised-button color="primary" (click)="onSubmit()">
                 <span class="material-icons">
-                  add
+                  save
                 </span>
                 Envíar
               </button>
