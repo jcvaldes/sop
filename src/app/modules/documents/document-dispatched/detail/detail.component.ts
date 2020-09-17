@@ -8,6 +8,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { DocumentDeliver } from '../document-deliver.model';
 import * as uuidv4 from 'uuid/v4';
 import { SwalService } from '../../../../core/services/swal.service';
+import { ValidatorsService } from './validators.service';
 
 @Component({
   selector: 'app-detail',
@@ -16,8 +17,7 @@ import { SwalService } from '../../../../core/services/swal.service';
 })
 export class DetailComponent implements OnInit, OnDestroy {
   form: FormGroup;
-  dateMask = '00/00/0000';
-  mask = 'SS-000000000-SS';
+  pieceMsk = 'SS-000000000-SS';
   paramSubs: Subscription;
   displayedColumns: string[] = [ 'pieceId', 'statusDeliver', 'timeStreet', 'motiveNotDeliver', 'actions'];
 
@@ -30,7 +30,8 @@ export class DetailComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private activateRoute: ActivatedRoute,
     private httpService: HttpService,
-    private swalService: SwalService
+    private swalService: SwalService,
+    private validators: ValidatorsService
   ) {
     this.createForm();
     this.paramSubs = activateRoute.params.subscribe(params => {
@@ -51,7 +52,10 @@ export class DetailComponent implements OnInit, OnDestroy {
       dateDocument: new FormControl(null, Validators.required),
       unityCompany: new FormControl(null, [Validators.required, Validators.maxLength(6), Validators.minLength(6), Validators.pattern('^[0-9]{1,45}$')]),
       distribution: new FormControl(null, [Validators.required, Validators.maxLength(20), Validators.pattern('[a-zA-Z]+')]),
-      pieceId: new FormControl(null, Validators.required),
+      pieceId: new FormControl(null, [
+        Validators.required,
+        // pieceIdValidator(/^[A-Z]{1,2}-\\d{9,9}-AR$/i)
+      ]),
       statusDeliver: new FormControl(null, Validators.required),
       timeStreet: new FormControl(null, Validators.required),
       motiveNotDeliver: new FormControl(null, Validators.required),
@@ -87,6 +91,9 @@ export class DetailComponent implements OnInit, OnDestroy {
     const data = [...this.dataSource.data] || [];
     this.dataSource.data = data;
 
+  }
+  get pieceNotValid() {
+    return this.form.get('pieceId').invalid && this.form.get('pieceId').touched;
   }
   onSubmit() {
     if (this.form.valid) {

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://sop-central-back-sop-dev.noprod.correo.local/SOPCentral/services/rest/v1'
+  apiUrl: 'http://localhost:3000'
 };
 
 /*

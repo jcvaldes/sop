@@ -10,7 +10,7 @@ class AuthController {
     const { body } = req
     db.User.findOne({
         where: {
-          username: body.username
+          accountName: body.accountName
         }
       }).then(user => {
         // si el usuario no existe

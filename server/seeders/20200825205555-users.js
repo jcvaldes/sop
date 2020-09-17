@@ -6,7 +6,7 @@ module.exports = {
   [{
     firstname: 'Juan',
     lastname: 'Valdés',
-    username: 'jcvaldes',
+    accountName: 'jcvaldes',
     email: 'idevkingos@gmail.com',
     password: bcrypt.hashSync('123456', 10),
     active: true,
@@ -15,7 +15,7 @@ module.exports = {
   }, {
     firstname: 'Cristian',
     lastname: 'Rodriguez',
-    username: 'ccrodriguez',
+    accountName: 'ccrodriguez',
     email: 'crodrigruez@gmail.com',
     password: bcrypt.hashSync('123456', 10),
     active: true,

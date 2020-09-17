@@ -32,8 +32,8 @@ export class AuthService extends HttpService {
     private store: Store<AppState>
   ) {
     super(http);
-    // this.url = urljoin(environment.apiUrl, '/api/auth');
-    this.url = urljoin(environment.apiUrl, '/users/login');
+    this.url = urljoin(environment.apiUrl, '/api/auth');
+    // this.url = urljoin(environment.apiUrl, '/users/login');
   }
 
   // nos avisa cualquier cambio con la autenticacion, cuando tengamos el usuario o cierro sesion

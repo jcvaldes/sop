@@ -14,7 +14,15 @@ module.exports = {
       unique: true
     },
     description: {
-      type: Sequelize.STRING(30),
+      type: Sequelize.STRING(60),
+      allowNull: false
+    },
+    webDescription: {
+      type: Sequelize.STRING(60),
+      allowNull: true
+    },
+    deliveryInd: {
+      type: Sequelize.STRING(60),
       allowNull: false
     },
     active: {

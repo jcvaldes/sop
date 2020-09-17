@@ -1,7 +1,7 @@
 <mat-form-field>
   <mat-select
     [formControl]="comboCtrl"
-    placeholder="Estado de Distribución"
+    placeholder="Producto"
     required
     #singleSelect
     (selectionChange)="onSelectionChange($event)"
@@ -9,7 +9,7 @@
     <mat-option>
       <ngx-mat-select-search
         [formControl]="comboFilterCtrl"
-        placeholderLabel="Buscar Estado de Distribución"
+        placeholderLabel="Buscar Producto"
         [noEntriesFoundLabel]="'No hay resultados'"
       ></ngx-mat-select-search>
     </mat-option>

@@ -11,13 +11,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DocumentDispatchedComponent } from './document-dispatched.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { PieceIdValidatorDirective } from '../../../shared/directives/piece-id.directive';
 
 export let options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
   declarations: [
     DocumentDispatchedComponent,
     DetailComponent,
-    ListComponent
+    ListComponent,
+    PieceIdValidatorDirective
   ],
   imports: [
     CommonModule,

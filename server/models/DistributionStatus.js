@@ -13,13 +13,21 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true
     },
-    title: {
+    code: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    ParentId: {
-      type: DataTypes.INTEGER,
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    webDescription: {
+      type: DataTypes.STRING,
       allowNull: true,
+    },
+    deliveryInd: {
+      type: DataTypes.STRING(60),
+      allowNull: false
     },
     active: {
       type: DataTypes.BOOLEAN,

@@ -43,7 +43,6 @@ export class MenuService extends HttpService {
     //   ['Onion', ['Yellow', 'White', 'Purple']]
     // ]);
     let menuMap = new Map<string, string[]>();
-    debugger
     menu.forEach(m => {
       // Si es null es root
       if (!m.ParentId) {

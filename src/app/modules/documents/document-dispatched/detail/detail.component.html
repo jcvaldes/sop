@@ -30,7 +30,6 @@
                         [matDatepicker]="dateDocument"
                         placeholder="Fecha"
                         required
-
                         autofocus
                       />
                       <mat-datepicker-toggle
@@ -69,21 +68,39 @@
                 <em><h6>Carga de Datos</h6></em>
                 <div class="row">
                   <div class="col-12 col-md-3">
+                    <!-- [mask]="pieceMsk"
+                    [showMaskTyped]="true"
+                    pattern="[A-Z]{1,2}\w+[-]{1}\d*[-]{1}AR/" -->
+                    <!-- (input)="pieceId.value = pieceId.value.toUpperCase()" -->
+
                     <mat-form-field>
                       <input
                         matInput
                         type="text"
-                        placeholder="ID Pieza"
-                        [mask]="mask"
+                        [mask]="pieceMsk"
                         [showMaskTyped]="true"
-                        formControlName="pieceId"
+                        validation="true"
                         (input)="pieceId.value = pieceId.value.toUpperCase()"
+                        placeholder="ID Pieza"
+                        formControlName="pieceId"
+                        appPieceId
                         required
                         #pieceId
                       />
+                      <mat-error *ngIf="form.get('pieceId').hasError('required')">
+                        requerido
+                      </mat-error>
+
+                      <mat-error *ngIf="(form.get('pieceId').touched && form.get('pieceId').dirty) && form.get('pieceId').hasError('pieceIdInvalid')">
+                        ID de pieza incorrecto
+                      </mat-error>
                     </mat-form-field>
                   </div>
+
                   <div class="col-12 col-md-3">
+                    {{ form.get('pieceId').dirty }}
+                    {{ form.get('pieceId').touched }}
+                    {{ form.get('pieceId').hasError('pieceIdInvalid') }}
                     <!-- <mat-form-field> -->
                       <!-- <input
                         matInput
