@@ -283,7 +283,7 @@
           </div>
           <div class="row mt-4">
             <div class="col-12 text-right">
-              <button mat-raised-button color="primary" (click)="onSubmit()">
+              <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="dataSource.data.length === 0">
                 <span class="material-icons">
                   send
                 </span>
