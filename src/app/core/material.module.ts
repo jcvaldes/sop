@@ -76,6 +76,7 @@ const modules = [
   NgxMaterialTimepickerModule,
   MatTreeModule,
   MatProgressBarModule,
+  NgxMaterialTimepickerModule,
 
   // CDK
   A11yModule,
