@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
       },
       title: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING(70),
         allowNull: false,
       },
       icon: {
@@ -17,7 +17,7 @@ module.exports = {
         allowNull: false
       },
       uri: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING(60),
         allowNull: true
       },
       ParentId: {

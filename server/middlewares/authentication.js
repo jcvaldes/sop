@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const validRoles = require('../utils/validRoles');
 const node_env = process.env.NODE_ENV || 'development';
-const { SEED } = require('../config/config')[node_env];
+const { config } = require('../config');
 
 const extractToken = function (req) {
   if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
@@ -20,7 +20,7 @@ exports.verifyToken = function(req, res, next) {
   // const { token } = req.query
   const token = extractToken(req)
   if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' })
-  jwt.verify(token, SEED, (err, decoded) => {
+  jwt.verify(token, config.authJwtSecret, (err, decoded) => {
     if (err) {
       return res.status(401).json({
         ok: false,

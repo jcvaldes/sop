@@ -4,10 +4,10 @@
 module.exports = {
   up: async(queryInterface) => {
     return await queryInterface.addConstraint(
-        'DocumentsDispatched', {
-          fields: ['StatusId'],
+        'DeliveryDocuments', {
+          fields: ['StatusDeliveryId'],
           type: 'foreign key',
-          name: 'fk_DocumentsDispatchedStatus_StatusId',
+          name: 'fk_DeliveryDocumentsStatus_StatusDeliveryId',
           references: {
             table: 'DistributionStatus', // name of Target model
             field: 'id', // key in Target model that we're referencing
@@ -18,6 +18,6 @@ module.exports = {
       )
   },
   down: (queryInterface) => {
-    return queryInterface.removeConstraint('DocumentsDispatched', 'fk_DocumentsDispatchedStatus_StatusId');
+    return queryInterface.removeConstraint('DeliveryDocuments', 'fk_DeliveryDocumentsStatus_StatusDeliveryId');
   },
 };

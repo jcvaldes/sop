@@ -1,19 +1,20 @@
 import db from '../../models'
+import { Sequelize } from '../../models';
 import RESPONSES from '../../utils/responses'
 
-class DocumentDispatchedController {
+class DeliveryDocumentController {
   static async Fetch(req, res) {
     const attrs = [
       'id',
       'dateDocument',
       'unityCompany',
       'distribution',
-      'pieceId',
+      'piece',
       'status',
       'timeStreet',
-      'motiveNotDeliver',
+      'motiveNotDelivery',
     ]
-    db.DocumentDispatched.findAll({
+    db.DeliveryDocument.findAll({
       attributes: attrs,
       order: [['id']],
     })
@@ -28,7 +29,7 @@ class DocumentDispatchedController {
   }
   static FetchOne(req, res) {
     const id = +req.params.id
-    db.DocumentDispatched.findOne({
+    db.DeliveryDocument.findOne({
       where: {
         id,
       },
@@ -61,26 +62,28 @@ class DocumentDispatchedController {
     //   dateDocument,
     //   unityCompany,
     //   distribution,
-    //   pieceId,
+    //   piece,
     //   status,
     //   timeStreet,
-    //   motiveNotDeliver,
+    //   motiveNotDelivery,
     // } = req.body
-    db.DocumentDispatched.create(req.body)
-      .then((role) => {
+    db.DeliveryDocument.bulkCreate(req.body)
+      .then((document) => {
         res.status(200).json({
           ok: true,
-          role,
+          payload: document,
         })
       })
       .catch(Sequelize.ValidationError, (msg) => {
         res.status(422).json({ message: msg.message })
       })
-      .catch(Sequelize.ForeignKeyConstraintError, (err) =>
+      .catch(Sequelize.ForeignKeyConstraintError, (err) => {
+
         res.status(400).json({
           message: RESPONSES.RECORD_IN_USE_ERROR.message,
-        }),
-      )
+        })
+
+      })
       .catch((err) =>
         res
           .status(400)
@@ -92,22 +95,22 @@ class DocumentDispatchedController {
       dateDocument,
       unityCompany,
       distribution,
-      pieceId,
+      piece,
       status,
       timeStreet,
-      motiveNotDeliver,
+      motiveNotDelivery,
     } = req.body
     const id = +req.params.id
-    db.DocumentDispatched.update(
+    db.DeliveryDocument.update(
       {
         id,
         dateDocument,
         unityCompany,
         distribution,
-        pieceId,
+        piece,
         status,
         timeStreet,
-        motiveNotDeliver,
+        motiveNotDelivery,
       },
       { where: { id } },
     )
@@ -132,7 +135,7 @@ class DocumentDispatchedController {
   }
   static Delete(req, res) {
     const { id } = req.params
-    db.DocumentDispatched
+    db.DeliveryDocument
       .destroy({ where: { id } })
       .then((result) => {
         if (result === 0) {
@@ -155,4 +158,4 @@ class DocumentDispatchedController {
       )
   }
 }
-export default DocumentDispatchedController
+export default DeliveryDocumentController
