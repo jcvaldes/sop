@@ -1,17 +1,25 @@
 import { Injectable, Injector } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpEventType, HttpErrorResponse } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { tap, catchError } from 'rxjs/operators';
+import { SessionStorageService } from '../services/session-storage.service';
+import { Router } from '@angular/router';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenInterceptor implements HttpInterceptor {
-  constructor (private injector: Injector) {}
+  constructor(
+    private injector: Injector,
+    private router: Router,
+    private ssService: SessionStorageService
+  ) { }
 
-  intercept (request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const auth = this.injector.get(AuthService);
+    debugger
     const token = auth.user && auth.token ? auth.token : '';
     request = request.clone({
       setHeaders: {
@@ -22,6 +30,20 @@ export class TokenInterceptor implements HttpInterceptor {
       }
     });
 
-    return next.handle(request);
+    return next.handle(request).pipe(
+      tap(
+        (event: HttpEvent<any>) => {
+          if (event.type === HttpEventType.Response && event.headers.get('Authorization')) {
+            const token = event.headers.get('authorization');
+            this.ssService.set('token', token);
+          } else {
+            // console.log("Token no retornado");
+          }
+        }, (error: HttpErrorResponse) => {
+          this.ssService.clear();
+          this.router.navigate(['/login']);
+        }
+      )
+    );
   }
 }

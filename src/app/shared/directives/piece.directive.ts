@@ -3,12 +3,12 @@ import { Input, Directive } from '@angular/core';
 import { Product } from '../models/product.model';
 
 @Directive({
-  selector: '[appPieceId]',
+  selector: '[appPiece]',
   providers: [
-    { provide: NG_VALIDATORS, useExisting: PieceIdValidatorDirective, multi: true }
+    { provide: NG_VALIDATORS, useExisting: PieceValidatorDirective, multi: true }
   ]
 })
-export class PieceIdValidatorDirective implements Validator {
+export class PieceValidatorDirective implements Validator {
   @Input() products: Product[];
   validate(control: AbstractControl): { [key: string]: any } | null {
     const pattern = '^[A-Z]{1,2}\\d{9,9}AR$';
@@ -18,7 +18,7 @@ export class PieceIdValidatorDirective implements Validator {
     const re = new RegExp(pattern, 'i');
     const isValid = re.test(control.value) && this.checkProductCode(control);
     if (!isValid) {
-      return { 'pieceIdInvalid': true }; // return object if the validation is not passed.
+      return { 'pieceInvalid': true }; // return object if the validation is not passed.
     }
     return null; // return null if validation is passed.
   }

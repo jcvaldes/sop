@@ -33,6 +33,7 @@ export class AuthService extends HttpService {
   ) {
     super(http);
     this.url = urljoin(environment.apiUrl, '/api/auth');
+    this.loadStorage();
     // this.url = urljoin(environment.apiUrl, '/users/login');
   }
 
@@ -78,7 +79,6 @@ export class AuthService extends HttpService {
   }
 
   login(user: User, remember: boolean ) {
-
     if (remember) {
       this.lsService.set('accountName', user.accountName);
     } else {
@@ -88,7 +88,6 @@ export class AuthService extends HttpService {
       .post(this.url, user)
       .pipe(
         map((response: any) => {
-          debugger
           this.store.dispatch(ui.stopLoading());
           this.saveStorage(
             response.id,
@@ -134,7 +133,7 @@ export class AuthService extends HttpService {
   //  this.menu = menu;
   }
   loadStorage() {
-    const token = this.ssService.get('token');
+    const token = this.ssService.get('token')
     if (token) {
       this.token = token;
       this.user = this.ssService.get('user');

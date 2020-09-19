@@ -8,6 +8,21 @@ export class SwalService {
   constructor() { }
   private open(html: string, title: string, icon, showConfirmButton?, animation?, timer?): Promise<SweetAlertResult> {
     title = title || 'Atención';
+    return showConfirmButton ? this.showConfirm(html, title, icon, animation, timer) : this.showAlert(html, title, icon, animation, timer);
+  }
+  success(title: string = 'Atención', text: string, showConfirmation?, animation?, timer?): Promise<SweetAlertResult> {
+    return this.open(text, title, 'success', showConfirmation, animation, timer);
+  }
+  confirm(title: string = 'Atención', text: string, icon, animation?, timer?): Promise<SweetAlertResult> {
+    return this.open(text, title, icon, true, animation, timer);
+  }
+  warn(title: string = 'Atención', text: string, showConfirmation?, animation?, timer?): Promise<SweetAlertResult> {
+    return this.open(text, title, 'info', showConfirmation, animation, timer);
+  }
+  error(title: string = 'Atención', text: string, showConfirmation?, animation?, timer?): Promise<SweetAlertResult> {
+    return this.open(text, title, 'error', showConfirmation, animation, timer);
+  }
+  private showConfirm(html, title, icon, animation, timer): Promise<SweetAlertResult> {
     return Swal.fire({
       title: `<strong>${title}</strong>`,
       icon,
@@ -23,16 +38,16 @@ export class SwalService {
       timer: timer || 0
     });
   }
-  success(title: string = 'Atención', text: string, showConfirmation?, animation?, timer?): Promise<SweetAlertResult> {
-    return this.open(text, title, 'success', showConfirmation, animation, timer);
-  }
-  confirm(title: string = 'Atención', text: string, icon, animation?, timer?): Promise<SweetAlertResult> {
-    return this.open(text, title, icon, true, animation, timer);
-  }
-  warn(title: string = 'Atención', text: string, showConfirmation?, animation?, timer?): Promise<SweetAlertResult> {
-    return this.open(text, title, 'info', showConfirmation, animation, timer);
-  }
-  error(title: string = 'Atención', text: string,  showConfirmation?, animation?, timer?): Promise<SweetAlertResult> {
-    return this.open(text, title, 'error', showConfirmation, animation, timer);
+  private showAlert(html, title, icon, animation, timer): Promise<SweetAlertResult> {
+    return Swal.fire({
+      title: `<strong>${title}</strong>`,
+      icon,
+      html,
+      showCloseButton: true,
+      focusConfirm: true,
+      animation: animation || false,
+      timer: timer || 0
+    });
+
   }
 }

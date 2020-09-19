@@ -6,11 +6,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { DocumentDeliver } from '../document-deliver.model';
+import { DocumentDelivery } from '../../../../shared/models/document-delivery.model';
 import * as uuidv4 from 'uuid/v4';
 import { SwalService } from '../../../../core/services/swal.service';
 import { Product } from '@shared/models/product.model';
-
+import _ from 'lodash';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
@@ -22,10 +22,10 @@ export class DetailComponent implements OnInit, OnDestroy {
   productSubs: Subscription;
   products: Product;
   defaultTime: string;
-  displayedColumns: string[] = [ 'statusError', 'pieceId', 'statusDeliver', 'timeStreet', 'motiveNotDeliver', 'actions'];
+  displayedColumns: string[] = ['statusError', 'piece', 'statusDeliver', 'timeStreet', 'motiveNotDelivery', 'actions'];
 
-  dataSource: MatTableDataSource<DocumentDeliver> = new MatTableDataSource<
-    DocumentDeliver
+  dataSource: MatTableDataSource<DocumentDelivery> = new MatTableDataSource<
+    DocumentDelivery
   >();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('refDocument', { static: true }) refDocument: ElementRef;
@@ -47,11 +47,12 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.form.get('timeStreet').setValue(this.defaultTime);
   }
   ngOnDestroy() {
-   // this.paramSubs.unsubscribe();
+    // this.paramSubs.unsubscribe();
   }
   createForm() {
     this.form = this.fb.group({
       id: new FormControl(null),
+      StatusDeliveryId: new FormControl(null, Validators.required),
       dateDocument: new FormControl(null, Validators.required),
       unityCompany: new FormControl(null, [Validators.required, Validators.maxLength(6), Validators.minLength(6), Validators.pattern('^[0-9]{1,45}$')]),
       distribution: new FormControl(null, [
@@ -59,12 +60,11 @@ export class DetailComponent implements OnInit, OnDestroy {
         Validators.maxLength(20),
         // Validators.pattern('[a-zA-Z]+')
       ]),
-      pieceId: new FormControl(null, [
+      piece: new FormControl(null, [
         Validators.required
       ]),
-      statusDeliver: new FormControl(null, Validators.required),
       timeStreet: new FormControl(null, Validators.required),
-      motiveNotDeliver: new FormControl(null, [
+      motiveNotDelivery: new FormControl(null, [
         Validators.required,
         Validators.maxLength(25)
       ]),
@@ -76,25 +76,25 @@ export class DetailComponent implements OnInit, OnDestroy {
     if (!id) {
       // Create
       if (this.dataSource.data.length > 23) {
-        this.swalService.error('Oopss!', 'Deberás enviar estos 24 items para seguir cargando...');
+        this.swalService.error('Oopss!', 'Deberás enviar estos 24 items para seguir cargando...', false, true);
       }
       const data = [...this.dataSource.data];
       this.form.get('id').setValue(uuidv4());
       data.push({ statusError: true, ...this.form.value });
       this.dataSource.data = data;
-      this.form.reset();
-      this.refDocument.nativeElement.focus();
+      this.onReset();
+      // this.refDocument.nativeElement.focus();
     } else {
       // Update
       const idx = this.dataSource.data.findIndex(doc => doc.id === this.form.get('id').value);
-      this.dataSource.data[idx] = { ...this.form.value };
+      this.dataSource.data[idx] = { statusError: true, ...this.form.value };
       const data = [...this.dataSource.data];
       this.dataSource.data = data;
       this.onReset();
     }
   }
   onEdit(row) {
-    this.form.setValue(row);
+    this.form.setValue(_.omit(row, ['statusError']));
   }
   onReset() {
     this.form.reset();
@@ -107,29 +107,32 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.dataSource.data = data;
     this.onReset();
   }
-  onSubmit() {
-    if (this.form.valid) {
-      debugger
-      if (!this.form.get('id').value) {
-        const url = `${environment.apiUrl}/api/document-dispatched`;
-        this.httpService.post(url, this.dataSource.data).subscribe(data => {
-          this.swalService.success('Atención', 'Los datos han sido guardados');
-        }, err => {
-          this.swalService.error('Error', `:: ${ err }`);
-        });
-      } else {
-        // this._roleService.update<Role>(this.form.value).subscribe(
-        //   (role) => {
-        //     this.onClose(true);
-        //     this.notificationService.success(
-        //       ':: El rol ha sido actualizado',
-        //     );
-        //   },
-        //   (err) => {
-        //     this.notificationService.error(`:: ${err}`);
-        //   },
-        // );
-      }
+  onSend() {
+    if (!this.form.get('id').value) {
+      const url = `${environment.apiUrl}/api/document-dispatched`;
+      let payload: DocumentDelivery[] = [...this.dataSource.data];
+      payload.forEach((i: DocumentDelivery) => {
+        delete i.statusError;
+        delete i.id;
+      });
+      this.httpService.post(url, this.dataSource.data).subscribe(data => {
+        this.swalService.success('Atención', 'Los datos han sido guardados', false, true);
+        this.dataSource.data = [];
+      }, err => {
+        this.swalService.error('Error', `:: ${err}`, false, true);
+      });
+    } else {
+      // this._roleService.update<Role>(this.form.value).subscribe(
+      //   (role) => {
+      //     this.onClose(true);
+      //     this.notificationService.success(
+      //       ':: El rol ha sido actualizado',
+      //     );
+      //   },
+      //   (err) => {
+      //     this.notificationService.error(`:: ${err}`);
+      //   },
+      // );
     }
   }
 }

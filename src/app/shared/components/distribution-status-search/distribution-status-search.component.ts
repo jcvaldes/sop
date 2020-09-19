@@ -19,6 +19,8 @@ export class DistributionStatusSearchComponent extends ComboSearchComponent<Dist
     const selected = _.filter(this.payload, (el) => {
       return el.id === evt.value[0];
     });
-    this.selected = selected[0].description;
+    if (this.selected) {
+      this.selected = selected[0].description;
+    }
   }
 }

@@ -11,7 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DocumentDispatchedComponent } from './document-dispatched.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
-import { PieceIdValidatorDirective } from '../../../shared/directives/piece-id.directive';
+import { PieceValidatorDirective } from '../../../shared/directives/piece.directive';
 
 export let options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
@@ -19,7 +19,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     DocumentDispatchedComponent,
     DetailComponent,
     ListComponent,
-    PieceIdValidatorDirective
+    PieceValidatorDirective
   ],
   imports: [
     CommonModule,

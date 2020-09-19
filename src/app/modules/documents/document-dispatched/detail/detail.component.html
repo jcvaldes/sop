@@ -17,7 +17,7 @@
         <mat-card-content>
           <div class="row mt-2 p-2">
             <div class="col-12">
-              <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <form [formGroup]="form">
                 <input type="hidden" formControlName="id" />
                 <div class="form-group form-row">
                   <div class="col-12 col-md-3">
@@ -75,26 +75,26 @@
                         matInput
                         type="text"
                         validation="true"
-                        (input)="pieceId.value = pieceId.value.toUpperCase()"
+                        (input)="piece.value = piece.value.toUpperCase()"
                         placeholder="Cód de Pieza"
-                        formControlName="pieceId"
+                        formControlName="piece"
                         maxlength="13"
-                        appPieceId
+                        appPiece
                         [products]="products"
                         required
-                        #pieceId
+                        #piece
                       />
                       <mat-error
-                        *ngIf="form.get('pieceId').hasError('required')"
+                        *ngIf="form.get('piece').hasError('required')"
                       >
                         requerido
                       </mat-error>
 
                       <mat-error
                         *ngIf="
-                          form.get('pieceId').touched &&
-                          form.get('pieceId').dirty &&
-                          form.get('pieceId').hasError('pieceIdInvalid')
+                          form.get('piece').touched &&
+                          form.get('piece').dirty &&
+                          form.get('piece').hasError('pieceInvalid')
                         "
                       >
                         ID de pieza incorrecto
@@ -103,18 +103,8 @@
                   </div>
 
                   <div class="col-12 col-md-3">
-                    <!-- <mat-form-field> -->
-                    <!-- <input
-                        matInput
-                        type="text"
-                        maxlength="6"
-                        placeholder="Estado Entrega"
-                        formControlName="statusDeliver"
-                        required
-                      /> -->
-                    <!-- </mat-form-field> -->
                     <app-distribution-status-search
-                      [comboCtrl]="form.controls['statusDeliver']"
+                      [comboCtrl]="form.controls['StatusDeliveryId']"
                     ></app-distribution-status-search>
                   </div>
                   <div class="col-12 col-md-2">
@@ -142,7 +132,7 @@
                         matInput
                         type="text"
                         placeholder="Firma u Observación"
-                        formControlName="motiveNotDeliver"
+                        formControlName="motiveNotDelivery"
                         maxlength="25"
                         required
                       />
@@ -201,12 +191,12 @@
                         <i class="far fa-2x fa-thumbs-down fg-danger" *ngIf="element.statusError === false"></i>
                       </mat-cell>
                     </ng-container>
-                    <ng-container matColumnDef="pieceId">
+                    <ng-container matColumnDef="piece">
                       <mat-header-cell *matHeaderCellDef>
                         Cód. de Pieza
                       </mat-header-cell>
                       <mat-cell *matCellDef="let element">
-                        {{ element?.pieceId }}
+                        {{ element?.piece }}
                       </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="statusDeliver">
@@ -225,12 +215,12 @@
                         {{ element?.timeStreet }}
                       </mat-cell>
                     </ng-container>
-                    <ng-container matColumnDef="motiveNotDeliver">
+                    <ng-container matColumnDef="motiveNotDelivery">
                       <mat-header-cell *matHeaderCellDef>
                         Firma u Observación
                       </mat-header-cell>
                       <mat-cell *matCellDef="let element">
-                        {{ element?.motiveNotDeliver }}
+                        {{ element?.motiveNotDelivery }}
                       </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="actions">
@@ -283,7 +273,7 @@
           </div>
           <div class="row mt-4">
             <div class="col-12 text-right">
-              <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="dataSource.data.length === 0">
+              <button mat-raised-button color="primary" (click)="onSend()" [disabled]="dataSource.data.length === 0">
                 <span class="material-icons">
                   send
                 </span>
