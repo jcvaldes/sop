@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col-12">
       <mat-card>
+        <form [formGroup]="form">
         <mat-card-header
           [style.backgroundColor]="'#165396'"
           class="p-2 text-white"
@@ -17,7 +18,7 @@
         <mat-card-content>
           <div class="row mt-2 p-2">
             <div class="col-12">
-              <form [formGroup]="form">
+
                 <input type="hidden" formControlName="id" />
                 <div class="form-group form-row">
                   <div class="col-12 col-md-3">
@@ -64,115 +65,155 @@
                     </mat-form-field>
                   </div>
                 </div>
-                <em><h6>Carga de Resultado de Distribución</h6></em>
-                <div class="row">
-                  <div class="col-12 col-md-3">
-                    <!-- [mask]="pieceMsk"
-                    [showMaskTyped]="true"
-                    pattern="[A-Z]{1,2}\w+[-]{1}\d*[-]{1}AR/" -->
-                    <mat-form-field>
-                      <input
-                        matInput
-                        type="text"
-                        validation="true"
-                        (input)="piece.value = piece.value.toUpperCase()"
-                        placeholder="Cód de Pieza"
-                        formControlName="piece"
-                        maxlength="13"
-                        appPiece
-                        [products]="products"
-                        required
-                        #piece
-                      />
-                      <mat-error
-                        *ngIf="form.get('piece').hasError('required')"
-                      >
-                        requerido
-                      </mat-error>
 
-                      <mat-error
-                        *ngIf="
-                          form.get('piece').touched &&
-                          form.get('piece').dirty &&
-                          form.get('piece').hasError('pieceInvalid')
-                        "
-                      >
-                        ID de pieza incorrecto
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-
-                  <div class="col-12 col-md-3">
-                    <app-distribution-status-search
-                      [comboCtrl]="form.controls['StatusDeliveryId']"
-                    ></app-distribution-status-search>
-                  </div>
-                  <div class="col-12 col-md-2">
-                    <!-- <mat-form-field>
-                      <input
-                        matInput
-                        type="time"
-                        maxlength="6"
-                        placeholder="Hora Calle"
-                        formControlName="timeStreet"
-                        required
-                      />
-                    </mat-form-field> -->
-                    <div class="p-0 pt-2">
-                      <ngx-timepicker-field
-                        [format]="24"
-                        [defaultTime]="defaultTime"
-                        formControlName="timeStreet"
-                      ></ngx-timepicker-field>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-2">
-                    <mat-form-field>
-                      <input
-                        matInput
-                        type="text"
-                        placeholder="Firma u Observación"
-                        formControlName="motiveNotDelivery"
-                        maxlength="25"
-                        required
-                      />
-                    </mat-form-field>
-                  </div>
-                  <div class="col-12 col-md-2">
-                    <div class="text-right text-sm-left mt-2 mt-sm-0">
-                      <button
-                        *ngIf="!form.get('id').value"
-                        mat-raised-button
-                        color="primary"
-                        [disabled]="form.invalid"
-                        (click)="onCreate()"
-                      >
-                        <span class="material-icons">
-                          add
-                        </span>
-                        Agregar
-                      </button>
-                      <button
-                        *ngIf="form.get('id').value"
-                        mat-raised-button
-                        color="primary"
-                        (click)="onCreate()"
-                      >
-                        <span class="material-icons">
-                          add
-                        </span>
-                        Actualizar
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </form>
             </div>
           </div>
-          <hr />
+        </mat-card-content>
+        <mat-card-header
+        [style.backgroundColor]="'#165396'"
+        class="p-2 text-white"
+      >
+        <div mat-card-avatar>
+          <mat-icon class="avatar">home</mat-icon>
+        </div>
+        <mat-card-title>
+          Carga de Resultado de Distribución
+        </mat-card-title>
+        <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row mt-2 p-2">
+          <div class="col-12">
+              <div class="row">
+                <div class="col-12 col-md-3">
+                  <!-- [mask]="pieceMsk"
+                  [showMaskTyped]="true"
+                  pattern="[A-Z]{1,2}\w+[-]{1}\d*[-]{1}AR/" -->
+                  <mat-form-field>
+                    <input
+                      matInput
+                      type="text"
+                      validation="true"
+                      (input)="piece.value = piece.value.toUpperCase()"
+                      placeholder="Cód de Pieza"
+                      formControlName="piece"
+                      maxlength="13"
+                      appPiece
+                      [products]="products"
+                      required
+                      #piece
+                    />
+                    <mat-error
+                      *ngIf="form.get('piece').hasError('required')"
+                    >
+                      requerido
+                    </mat-error>
+
+                    <mat-error
+                      *ngIf="
+                        form.get('piece').touched &&
+                        form.get('piece').dirty &&
+                        form.get('piece').hasError('pieceInvalid')
+                      "
+                    >
+                      ID de pieza incorrecto
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-12 col-md-3">
+                  <app-distribution-status-search
+                    [comboCtrl]="form.controls['StatusDeliveryId']"
+                  ></app-distribution-status-search>
+                </div>
+                <div class="col-12 col-md-2">
+                  <!-- <mat-form-field>
+                    <input
+                      matInput
+                      type="time"
+                      maxlength="6"
+                      placeholder="Hora Calle"
+                      formControlName="timeStreet"
+                      required
+                    />
+                  </mat-form-field> -->
+                  <div class="p-0 pt-2">
+                    <ngx-timepicker-field
+                      [format]="24"
+                      [defaultTime]="defaultTime"
+                      formControlName="timeStreet"
+                    ></ngx-timepicker-field>
+                  </div>
+                </div>
+                <div class="col-12 col-md-2">
+                  <mat-form-field>
+                    <input
+                      matInput
+                      type="text"
+                      placeholder="Firma u Observación"
+                      formControlName="motiveNotDelivery"
+                      maxlength="25"
+                      required
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-md-2">
+                  <div class="text-right text-sm-left mt-2 mt-sm-0">
+                    <button
+                      *ngIf="!form.get('id').value"
+                      mat-raised-button
+                      color="primary"
+                      [disabled]="form.invalid"
+                      (click)="onCreate()"
+                    >
+                      <span class="material-icons">
+                        add
+                      </span>
+                      Agregar
+                    </button>
+                    <button
+                      *ngIf="form.get('id').value"
+                      mat-raised-button
+                      color="primary"
+                      (click)="onCreate()"
+                    >
+                      <span class="material-icons">
+                        add
+                      </span>
+                      Actualizar
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+          </div>
+        </div>
+      </mat-card-content>
+    </form>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col-12">
+      <mat-card>
+        <mat-card-header
+          [style.backgroundColor]="'#165396'"
+          class="p-2 text-white"
+        >
+          <div mat-card-avatar>
+            <mat-icon class="avatar">home</mat-icon>
+          </div>
+          <mat-card-title>
+            Resultado de la distribución
+          </mat-card-title>
+          <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+        </mat-card-header>
+        <mat-card-content>
           <div class="row">
             <div class="col-12">
-              <h2>Resultado de la distribución</h2>
+
               <div class="mat-elevation-z8">
                 <div class="table-responsive">
                   <mat-table
