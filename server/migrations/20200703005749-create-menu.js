@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
       },
       title: {
-        type: Sequelize.STRING(70),
+        type: Sequelize.STRING(80),
         allowNull: false,
       },
       icon: {

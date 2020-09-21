@@ -17,23 +17,23 @@ module.exports = {
       allowNull: false,
     },
     unityCompany: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(20),
       allowNull: false,
     },
     distribution: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(30),
       allowNull: false,
     },
     piece: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(15),
       allowNull: false,
     },
     timeStreet: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(10),
       allowNull: false,
     },
     motiveNotDelivery: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(20),
       allowNull: false,
     },
     active: {
