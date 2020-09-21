@@ -54,7 +54,8 @@ export class AuthService extends HttpService {
   }
 
   renewToken() {
-    const url = urljoin(this.url, `/renewtoken?token=${this.token}`);
+    debugger
+    const url = urljoin(this.url, `/renewtoken`);
     return this.http
       .get(url)
       .pipe(
@@ -95,7 +96,9 @@ export class AuthService extends HttpService {
             response.user,
             null // response.menu
           );
+
           this.store.dispatch(authActions.setUser(response.user));
+          return response.user;
         })
       )
       .pipe(

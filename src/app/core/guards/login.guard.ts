@@ -4,7 +4,9 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/auth/auth.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class LoginGuard implements CanActivate, CanActivateChild, CanLoad {
   constructor(
     private router: Router,
@@ -13,7 +15,7 @@ export class LoginGuard implements CanActivate, CanActivateChild, CanLoad {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot) {
-    return this.checkLogging(state.url);
+    return this.checkLogging();
   }
   // tslint:disable-next-line: max-line-length
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
@@ -22,13 +24,10 @@ export class LoginGuard implements CanActivate, CanActivateChild, CanLoad {
   // tslint:disable-next-line: max-line-length
   canLoad(route: import('@angular/router').Route, segments: import('@angular/router').UrlSegment[]): boolean | Observable<boolean> | Promise<boolean> {
     const url = '/${route.path}';
-    return this.checkLogging(url);
+    return this.checkLogging();
   }
-  checkLogging(url: string) {
-    if (url === '/builder/service-contract') {
-      return true;
-    }
-    if (this.authService.isLoggedIn(url)) {
+  checkLogging() {
+    if (this.authService.isLoggedIn()) {
       return true;
     } else {
       this.router.navigate(['/login']);

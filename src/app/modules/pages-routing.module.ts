@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    // canActivate: [VerifyTokenGuard],
+    canActivate: [VerifyTokenGuard],
     data: { titulo: 'Dashboard' }
   },
   {

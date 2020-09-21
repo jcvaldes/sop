@@ -6,8 +6,9 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '@core/auth/auth.service';
-
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AdminGuard implements CanActivate {
   constructor(public authService: AuthService) {}
   canActivate() {

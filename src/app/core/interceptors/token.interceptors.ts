@@ -19,8 +19,10 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const auth = this.injector.get(AuthService);
-    debugger
     const token = auth.user && auth.token ? auth.token : '';
+    if(this.router.url.endsWith('login') || this.router.url.endsWith('renewtoken')) {
+      return next.handle(request);
+    }
     request = request.clone({
       setHeaders: {
         // 'Api-Token': token,

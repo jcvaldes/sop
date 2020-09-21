@@ -26,7 +26,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private swalService: SwalService
   ) { }
 
   ngOnInit() {
@@ -51,14 +52,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     const user: User = this.loginForm.value;
     this.authService.login(user, true)
       .subscribe(credenciales => {
-        debugger
         this.router.navigate(['/']);
       }, err => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: err.message
-        });
+        this.swalService.error('Oops...', err.message, false, true);
       });
   }
 }

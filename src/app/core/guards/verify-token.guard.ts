@@ -3,8 +3,9 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivateCh
 import { Observable } from 'rxjs';
 import { AuthService } from '@core/auth/auth.service';
 
-
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class VerifyTokenGuard implements CanActivate, CanActivateChild {
   constructor(
     public authService: AuthService
@@ -38,6 +39,10 @@ export class VerifyTokenGuard implements CanActivate, CanActivateChild {
   }
   private checkExpiresToken() {
     let token = this.authService.token;
+    if (!token) {
+      this.authService.logout();
+      return false;
+    }
     let payload = JSON.parse( atob( token.split('.')[1] ));
     let expiredToken = this.tokenEval(payload.exp);
     if (expiredToken) {
@@ -45,6 +50,7 @@ export class VerifyTokenGuard implements CanActivate, CanActivateChild {
       return false;
     }
     console.log( payload);
+    debugger
     return this.verifyRenew(payload.exp);
   }
   private tokenEval( exp: number ) {
