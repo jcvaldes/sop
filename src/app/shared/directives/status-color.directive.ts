@@ -1,5 +1,4 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
 
 @Directive({
   selector: '[appStatusColor]',
