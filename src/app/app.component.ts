@@ -20,7 +20,7 @@ export class AppComponent {
 
     }
     if (event instanceof NavigationEnd) {
-      if (this.authService.isLoggedIn()) {
+      if (this.authService.isLoggedIn() && this.router.url.endsWith('login')) {
         this.router.navigate(['/dashboard']);
       }
     }
