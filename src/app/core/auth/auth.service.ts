@@ -37,21 +37,7 @@ export class AuthService extends HttpService {
     // this.url = urljoin(environment.apiUrl, '/users/login');
   }
 
-  // nos avisa cualquier cambio con la autenticacion, cuando tengamos el usuario o cierro sesion
-  initAuthListener() {
-    // this.auth.authState.subscribe(fuser => {
-    //   // console.log(fuser);
-    //   if ( fuser ) {
-    //     this.userSubcription = this.firestore.doc(`${fuser.uid}/usuario`).valueChanges().subscribe((firestoreUser: any) => {
-    //       const user = Usuario.fromFirebase(firestoreUser);
-    //       this.store.dispatch(authActions.setUser({user}));
-    //     });
-    //   } else {
-    //     this.userSubcription.unsubscribe();
-    //     this.store.dispatch(authActions.unSetUser());
-    //   }
-    // });
-  }
+
 
   renewToken() {
     debugger
@@ -85,6 +71,7 @@ export class AuthService extends HttpService {
     } else {
       this.lsService.remove('accountName');
     }
+    console.log(this.url);
     return this.http
       .post(this.url, user)
       .pipe(
