@@ -1,4 +1,4 @@
-export interface DocumentDelivery {
+export interface DeliveryDocument {
   statusError: boolean;
   dateDocument: Date;
   unityCompany: string;

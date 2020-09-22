@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { DocumentDelivery } from '../../../../shared/models/document-delivery.model';
+import { DeliveryDocument } from '../../../../shared/models/delivery-document.model';
 import * as uuidv4 from 'uuid/v4';
 import { SwalService } from '../../../../core/services/swal.service';
 import { Product } from '@shared/models/product.model';
@@ -24,8 +24,8 @@ export class DetailComponent implements OnInit, OnDestroy {
   defaultTime: string;
   displayedColumns: string[] = ['statusError', 'piece', 'statusDeliver', 'timeStreet', 'motiveNotDelivery', 'actions'];
 
-  dataSource: MatTableDataSource<DocumentDelivery> = new MatTableDataSource<
-    DocumentDelivery
+  dataSource: MatTableDataSource<DeliveryDocument> = new MatTableDataSource<
+    DeliveryDocument
   >();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('refDocument', { static: true }) refDocument: ElementRef;
@@ -110,8 +110,8 @@ export class DetailComponent implements OnInit, OnDestroy {
   onSend() {
     if (!this.form.get('id').value) {
       const url = `${environment.apiUrl}/api/document-dispatched`;
-      let payload: DocumentDelivery[] = [...this.dataSource.data];
-      payload.forEach((i: DocumentDelivery) => {
+      let payload: DeliveryDocument[] = [...this.dataSource.data];
+      payload.forEach((i: DeliveryDocument) => {
         delete i.statusError;
         delete i.id;
       });

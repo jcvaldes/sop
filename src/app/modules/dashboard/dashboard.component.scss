@@ -1,0 +1,13 @@
+.card {
+  height: 90vh;
+}
+.mat-card-title{
+  background-color:blue !important;
+  padding:5px !important;
+}
+// ::ng-deep .mat-card{
+.mat-card{
+  padding:0 !important;
+  padding-bottom: 34px!important;
+
+}

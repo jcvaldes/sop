@@ -78,6 +78,6 @@ export class ItemDataSource implements DataSource<ItemNode> {
       // notify the change
       this.dataChange.next(this.data);
       node.isLoading = false;
-    }, 1000);
+    }, 200);
   }
 }
