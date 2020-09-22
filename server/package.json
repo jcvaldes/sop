@@ -4,7 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "babel-node app"
+    "start": "cross-env NODE_ENV=production babel-node app",
+    "dev:inspect": "nodemon --exec babel-node --inspect app",
+    "heroku-postbuild": "NODE_ENV=production ./node_modules/.bin/sequelize db:migrate"
   },
   "engines": {
     "node": "v12.18.3",
