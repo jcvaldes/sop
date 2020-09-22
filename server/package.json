@@ -6,6 +6,10 @@
   "scripts": {
     "start": "babel-node app"
   },
+  "engines": {
+    "node": "v12.18.3",
+    "npm": "6.14.6"
+  },
   "author": "Manuel Martinez <tumail@gmail.com>",
   "license": "MIT",
   "dependencies": {
