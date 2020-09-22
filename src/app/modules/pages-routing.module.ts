@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'documentos-entrega',
-    loadChildren: () => import('./documents/document-dispatched/document-dispatched.module').then(m => m.DocumentDispatchedModule),
+    loadChildren: () => import('./documents/delivery-document/delivery-document.module').then(m => m.DeliveryDocumentModule),
     // canActivate: [LoginGuard],
   },
 
